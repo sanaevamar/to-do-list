@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Список задач</title>
+  <meta name="description" content="Простой список задач: добавляйте дела, отмечайте выполненные, удаляйте лишнее. Всё сохраняется в браузере.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="Список задач">
+  <meta property="og:description" content="Добавляйте дела, отмечайте выполненные, удаляйте лишнее. Всё сохраняется в браузере.">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@400&display=swap">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M8 12.3l2.7 2.7L16 9.5"/>
+        </svg>
+        To-Do List
+      </p>
+
+      <h1 class="title">Список <span class="accent">задач</span></h1>
+
+      <p class="subtitle">
+        Записывайте дела и отмечайте сделанные.<br>
+        Список сохранится, даже если закрыть вкладку.
+      </p>
+
+      <!-- Чёрная полоса, в ней белое поле и кнопка. Проверку пустого ввода делает скрипт. -->
+      <form class="prompt" id="add-form" autocomplete="off" novalidate>
+        <label class="field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          <span class="visually-hidden">Новая задача</span>
+          <input id="new-task" name="task" type="text" maxlength="200" placeholder="Что нужно сделать?" enterkeyhint="done">
+        </label>
+        <button class="action" type="submit">Добавить</button>
+      </form>
+    </header>
+
+    <section class="board" id="board" aria-labelledby="board-title">
+      <div class="board-head">
+        <h2 class="board-title" id="board-title">Мои задачи</h2>
+        <p class="counter" id="counter" aria-live="polite" hidden></p>
+      </div>
+
+      <div class="progress" id="progress" aria-hidden="true" hidden>
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+      <ul class="list" id="task-list"></ul>
+
+      <div class="empty" id="empty-state">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="5" y="4" width="14" height="17" rx="3"/>
+            <path d="M9 4.5v-.7a.8.8 0 0 1 .8-.8h4.4a.8.8 0 0 1 .8.8v.7"/>
+            <path d="M9 11h6M9 15h4"/>
+          </svg>
+        </div>
+        <p class="empty-title">Пока ни одной задачи</p>
+        <p class="empty-text">Напишите первую в строке выше — она появится здесь.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Задачи хранятся только в этом браузере и никуда не отправляются.
+  </footer>
+
+  <!-- Разметка одной задачи. Скрипт копирует её и подставляет текст. -->
+  <template id="task-template">
+    <li class="item">
+      <label class="check">
+        <input class="checkbox" type="checkbox">
+        <span class="text"></span>
+      </label>
+      <button class="delete" type="button" title="Удалить">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 7h16"/>
+          <path d="M10 11v6M14 11v6"/>
+          <path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/>
+          <path d="M9 7V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V7"/>
+        </svg>
+      </button>
+    </li>
+  </template>
+</body>
+</html>
